@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>64D 입체음향 변환기</title>
+  <title>Spatial Audio Converter</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,15 +11,15 @@
 
   <div class="container">
     <header>
-      <div class="badge">64D SPATIAL AUDIO</div>
-      <h1>입체음향 변환기</h1>
-      <p class="subtitle">음악 파일을 64D 입체음향으로 변환하세요<br>
-        <span class="headphone-tip">🎧 헤드폰 또는 이어폰으로 들으세요</span>
+      <div class="badge">SPATIAL AUDIO</div>
+      <h1>Spatial Audio Converter</h1>
+      <p class="subtitle">Add a natural hall reverb to any audio file<br>
+        <span class="headphone-tip">🎧 Best experienced with headphones</span>
       </p>
     </header>
 
     <main>
-      <!-- 업로드 섹션 -->
+      <!-- Upload section -->
       <section class="card" id="uploadSection">
         <div class="upload-area" id="uploadArea">
           <div class="upload-icon">
@@ -30,8 +30,8 @@
               <circle cx="18" cy="16" r="3" />
             </svg>
           </div>
-          <p class="upload-text">오디오 파일을 드래그하거나 클릭하여 선택</p>
-          <p class="upload-hint">MP3, WAV, AAC, OGG, FLAC 지원</p>
+          <p class="upload-text">Drag & drop an audio file or click to browse</p>
+          <p class="upload-hint">Supports MP3, WAV, AAC, OGG, FLAC</p>
           <input type="file" id="fileInput" accept="audio/*" hidden />
         </div>
 
@@ -48,7 +48,7 @@
             <span class="file-name" id="fileName"></span>
             <span class="file-size" id="fileSize"></span>
           </div>
-          <button class="remove-btn" id="removeBtn" title="제거">
+          <button class="remove-btn" id="removeBtn" title="Remove">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -62,11 +62,11 @@
             stroke="currentColor" stroke-width="2">
             <polygon points="5 3 19 12 5 21 5 3" />
           </svg>
-          64D 변환 시작
+          Convert
         </button>
       </section>
 
-      <!-- 처리 중 섹션 -->
+      <!-- Processing section -->
       <section class="card" id="processingSection" hidden>
         <div class="visualizer">
           <div class="ring ring-1"></div>
@@ -79,14 +79,14 @@
             </svg>
           </div>
         </div>
-        <p class="processing-label" id="processingLabel">변환 준비 중...</p>
+        <p class="processing-label" id="processingLabel">Preparing...</p>
         <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
         </div>
         <p class="progress-percent" id="progressPercent">0%</p>
       </section>
 
-      <!-- 완료 섹션 -->
+      <!-- Result section -->
       <section class="card" id="resultSection" hidden>
         <div class="success-circle">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
@@ -94,8 +94,8 @@
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <p class="result-title">64D 변환 완료!</p>
-        <p class="result-hint">헤드폰을 착용하고 소리가 주변을 맴도는 느낌을 체험하세요</p>
+        <p class="result-title">Conversion Complete!</p>
+        <p class="result-hint">Put on your headphones and enjoy the spatial sound</p>
         <button class="download-btn" id="downloadBtn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2">
@@ -103,15 +103,15 @@
             <polyline points="7 10 12 15 17 10" />
             <line x1="12" y1="15" x2="12" y2="3" />
           </svg>
-          변환된 파일 다운로드
+          Download Converted File
         </button>
-        <button class="reset-btn" id="resetBtn">새 파일 변환하기</button>
+        <button class="reset-btn" id="resetBtn">Convert Another File</button>
       </section>
     </main>
 
     <footer>
-      <p>Web Audio API 기반 · 64D 입체음향 처리 · 브라우저 내 로컬 변환</p>
-      <p class="footer-sub">업로드된 파일은 서버로 전송되지 않습니다</p>
+      <p>Powered by Web Audio API &middot; Hall Reverb Processing &middot; Runs locally in your browser</p>
+      <p class="footer-sub">Your files are never uploaded to any server</p>
     </footer>
   </div>
 

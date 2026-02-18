@@ -1,10 +1,10 @@
 // ============================================================
-// 공간감 리버브 — 원본 속도 유지, 자연스러운 홀 잔향
+// Spatial Hall Reverb — original speed preserved
 //
-// · 속도/피치 변화 없음
-// · 중형 홀 잔향 (RT60 2.2s, wet 38%) — 과하지 않게
-// · 원음 EQ 최소 보정 (원곡 톤 최대한 보존)
-// · 스테레오 살짝 확장 (1.25×)
+// · No speed/pitch change
+// · Medium hall reverb (RT60 2.8s, wet 58%)
+// · Minimal EQ correction (preserves original tone)
+// · Subtle stereo widening (1.25×)
 // ============================================================
 
 (function () {
@@ -45,8 +45,8 @@ function setProgress(pct, label) {
 }
 
 function handleFile(file) {
-  if (!file?.type.startsWith('audio/')) { alert('오디오 파일을 선택해주세요.'); return; }
-  if (file.size > 200 * 1048576) { alert('200 MB 이하 파일을 사용해주세요.'); return; }
+  if (!file?.type.startsWith('audio/')) { alert('Please select an audio file.'); return; }
+  if (file.size > 200 * 1048576) { alert('Please use a file under 200 MB.'); return; }
   selectedFile = file;
   fileNameEl.textContent = file.name;
   fileSizeEl.textContent = fmtBytes(file.size);
@@ -65,7 +65,7 @@ uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classL
 fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
 removeBtn.addEventListener('click', clearFile);
 
-// ── WAV 인코더 ────────────────────────────────────────────
+// ── WAV Encoder ───────────────────────────────────────────
 function encodeWAV(buf) {
   const nCh=buf.numberOfChannels, sr=buf.sampleRate, n=buf.length;
   const blk=nCh*2, data=n*blk, ab=new ArrayBuffer(44+data), v=new DataView(ab);
@@ -83,7 +83,7 @@ function encodeWAV(buf) {
   return ab;
 }
 
-// ── 홀 잔향 IR ────────────────────────────────────────────
+// ── Hall Reverb IR ────────────────────────────────────────
 function makeHallIR(ctx, decaySec, predelayMs) {
   const sr = ctx.sampleRate;
   const pd = Math.floor(sr * predelayMs / 1000);
@@ -111,7 +111,7 @@ function makeHallIR(ctx, decaySec, predelayMs) {
   return ir;
 }
 
-// ── M-S 와이드닝 ─────────────────────────────────────────
+// ── M-S Widening ─────────────────────────────────────────
 function applyMSWiden(buf, w) {
   const L = buf.getChannelData(0), R = buf.getChannelData(1);
   for (let i = 0; i < buf.length; i++) {
@@ -120,7 +120,7 @@ function applyMSWiden(buf, w) {
   }
 }
 
-// ── 피크 노멀라이즈 ───────────────────────────────────────
+// ── Peak Normalize ────────────────────────────────────────
 function normalizePeak(buf, db) {
   const target = Math.pow(10, db/20);
   let peak = 0;
@@ -137,88 +137,88 @@ function normalizePeak(buf, db) {
   }
 }
 
-// ── 메인 변환 ─────────────────────────────────────────────
+// ── Main Conversion ───────────────────────────────────────
 async function convert() {
   uploadSection.hidden = true;
   processingSection.hidden = false;
   resultSection.hidden = true;
-  setProgress(0, '파일 읽는 중...');
+  setProgress(0, 'Reading file...');
 
   let arrayBuf;
   try { arrayBuf = await selectedFile.arrayBuffer(); }
-  catch { alert('파일 읽기 실패'); resetUI(); return; }
+  catch { alert('Failed to read file.'); resetUI(); return; }
 
-  setProgress(10, '오디오 디코딩 중...');
+  setProgress(10, 'Decoding audio...');
   let src;
   try {
     const tmp = new AudioContext();
     src = await tmp.decodeAudioData(arrayBuf);
     await tmp.close();
-  } catch { alert('디코딩 실패'); resetUI(); return; }
+  } catch { alert('Decoding failed.'); resetUI(); return; }
 
   const { sampleRate: sr, duration } = src;
-  setProgress(20, '처리 체인 구성 중...');
+  setProgress(20, 'Building processing chain...');
 
-  const totalFrames = Math.ceil((duration + 4) * sr);  // 잔향 꼬리 4초
+  const totalFrames = Math.ceil((duration + 4) * sr);  // 4s reverb tail
   const off = new OfflineAudioContext(2, totalFrames, sr);
 
   const source = off.createBufferSource();
   source.buffer = src;
-  // playbackRate 1.0 — 속도/피치 변화 없음
+  // playbackRate 1.0 — no speed/pitch change
 
   const master = off.createGain();
   master.gain.value = 0.88;
   master.connect(off.destination);
 
-  // ── 드라이 신호 (원음 최대한 보존) ──────────────────────
+  // ── Dry signal (preserve original as much as possible) ──
   const dryGain = off.createGain();
   dryGain.gain.value = 0.60;
 
   source.connect(dryGain);
   dryGain.connect(master);
 
-  // ── 웻 신호: 홀 잔향 ─────────────────────────────────
+  // ── Wet signal: hall reverb ───────────────────────────
   const preDelay = off.createDelay(0.2);
-  preDelay.delayTime.value = 0.022;      // 22ms pre-delay
+  preDelay.delayTime.value = 0.022;       // 22ms pre-delay
 
   const conv = off.createConvolver();
   conv.buffer = makeHallIR(off, 2.8, 22);
 
   const wetGain = off.createGain();
-  wetGain.gain.value = 0.58;             // wet 58%
+  wetGain.gain.value = 0.58;              // wet 58%
 
   source.connect(preDelay);
   preDelay.connect(conv);
   conv.connect(wetGain);
   wetGain.connect(master);
 
-  // ── 렌더링 ───────────────────────────────────────────
+  // ── Rendering ────────────────────────────────────────
   source.start(0);
-  setProgress(28, '렌더링 중...');
+  setProgress(28, 'Rendering...');
 
   const estMs = Math.min(duration * 400, 30000);
   const t0 = Date.now();
   const ticker = setInterval(() => {
-    setProgress(28 + Math.min(58, ((Date.now()-t0)/estMs)*58), '렌더링 중...');
+    setProgress(28 + Math.min(58, ((Date.now()-t0)/estMs)*58), 'Rendering...');
   }, 200);
 
   let rendered;
   try { rendered = await off.startRendering(); }
-  catch (e) { clearInterval(ticker); alert('렌더링 오류: ' + e.message); resetUI(); return; }
+  catch (e) { clearInterval(ticker); alert('Rendering error: ' + e.message); resetUI(); return; }
   clearInterval(ticker);
 
-  setProgress(89, '스테레오 확장 중...');
+  setProgress(89, 'Widening stereo...');
   applyMSWiden(rendered, 1.25);
 
-  setProgress(95, '레벨 최적화 중...');
+  setProgress(95, 'Optimizing levels...');
   normalizePeak(rendered, -0.5);
 
-  setProgress(99, 'WAV 인코딩 중...');
+  setProgress(99, 'Encoding WAV...');
   let wav;
   try { wav = encodeWAV(rendered); }
-  catch { alert('인코딩 오류'); resetUI(); return; }
+  catch { alert('Encoding error.'); resetUI(); return; }
 
-  setProgress(100, '완료!');
+  setProgress(100, 'Done!');
   if (downloadUrl) URL.revokeObjectURL(downloadUrl);
   downloadUrl  = URL.createObjectURL(new Blob([wav], { type: 'audio/wav' }));
   downloadName = selectedFile.name.replace(/\.[^.]+$/, '') + '_reverb.wav';
@@ -237,11 +237,11 @@ function resetUI() {
   uploadSection.hidden = false;
   processingSection.hidden = true;
   resultSection.hidden = true;
-  setProgress(0, '변환 준비 중...');
+  setProgress(0, 'Ready...');
   clearFile();
 }
 resetBtn.addEventListener('click', resetUI);
 convertBtn.addEventListener('click', () => {
   if (!selectedFile) return;
-  convert().catch(e => { console.error(e); alert('오류: ' + e.message); resetUI(); });
+  convert().catch(e => { console.error(e); alert('Error: ' + e.message); resetUI(); });
 });
