@@ -230,7 +230,12 @@ async function convert() {
 
 downloadBtn.addEventListener('click', () => {
   if (!downloadUrl) return;
-  Object.assign(document.createElement('a'), { href: downloadUrl, download: downloadName }).click();
+  const a = document.createElement('a');
+  a.href = downloadUrl;
+  a.download = downloadName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 });
 
 function resetUI() {
