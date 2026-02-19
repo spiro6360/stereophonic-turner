@@ -416,6 +416,149 @@ footer {
   color: #1e293b;
 }
 
+/* ===== 내비게이션 ===== */
+.site-nav {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 4px;
+}
+
+.site-nav a {
+  color: #475569;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.site-nav a:hover {
+  color: #a78bfa;
+}
+
+/* ===== 정보 섹션 ===== */
+.info-section h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.info-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #c4b5fd;
+  margin-bottom: 6px;
+}
+
+.info-lead {
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+/* ===== 스텝 ===== */
+.steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.4);
+}
+
+.step-body p {
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* ===== 기능 목록 ===== */
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-list li {
+  font-size: 13px;
+  color: #94a3b8;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.feature-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #34d399;
+  font-weight: 700;
+}
+
+.feature-list strong {
+  color: #e2e8f0;
+}
+
+/* ===== FAQ ===== */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.faq-item dt {
+  font-size: 14px;
+  font-weight: 600;
+  color: #c4b5fd;
+  margin-bottom: 5px;
+}
+
+.faq-item dd {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ===== 푸터 내비게이션 ===== */
+.footer-nav {
+  margin-top: 12px;
+}
+
+.footer-nav a {
+  color: #334155;
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+  color: #a78bfa;
+}
+
 /* ===== 반응형 ===== */
 @media (max-width: 400px) {
   .container { padding: 24px 14px 50px; }
