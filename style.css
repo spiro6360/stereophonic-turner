@@ -38,7 +38,7 @@ body {
 .container {
   position: relative;
   z-index: 1;
-  max-width: 560px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 40px 20px 60px;
   display: flex;
@@ -559,9 +559,99 @@ footer {
   color: #a78bfa;
 }
 
+/* ===== 페이지 소개 ===== */
+.page-intro {
+  margin-top: 14px;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.75;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== 섹션 내 본문 단락 ===== */
+.info-body {
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.info-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #c4b5fd;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.info-section h3:first-of-type {
+  margin-top: 0;
+}
+
+/* ===== 팁 목록 ===== */
+.tips-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 4px;
+}
+
+.tips-list > li {
+  border-left: 2px solid rgba(139, 92, 246, 0.35);
+  padding-left: 16px;
+}
+
+.tips-list > li h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #c4b5fd;
+  margin-bottom: 6px;
+  margin-top: 0;
+}
+
+.tips-list > li p {
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ===== 활용 사례 ===== */
+.use-cases {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.use-cases > li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: rgba(139, 92, 246, 0.05);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 10px;
+}
+
+.use-cases > li strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.use-cases > li span {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.65;
+}
+
 /* ===== 반응형 ===== */
 @media (max-width: 400px) {
   .container { padding: 24px 14px 50px; }
   .card { padding: 20px; }
-  .option-label span:first-child { min-width: 90px; }
 }

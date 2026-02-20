@@ -29,6 +29,7 @@
       <p class="subtitle">Add a natural hall reverb to any audio file<br>
         <span class="headphone-tip">🎧 Best experienced with headphones</span>
       </p>
+      <p class="page-intro">Transform any audio file into a concert-hall listening experience using professional-grade hall reverb and M-S stereo widening. Everything runs inside your browser — your files never leave your device. Upload a file above to get started, or read on to learn the technology behind spatial audio.</p>
     </header>
 
     <main>
@@ -130,36 +131,153 @@
           <div class="step-num">1</div>
           <div class="step-body">
             <h3>Upload Your Audio</h3>
-            <p>Drag and drop or click to browse for any audio file up to 200 MB. Supports MP3, WAV, AAC, OGG, and FLAC formats.</p>
+            <p>Drag and drop or click to browse for any audio file up to 200 MB. The converter accepts MP3, WAV, AAC, OGG, and FLAC — any song, podcast, or recording you want to process. Once selected, you will see a preview showing the filename and file size before conversion begins.</p>
           </div>
         </li>
         <li class="step">
           <div class="step-num">2</div>
           <div class="step-body">
-            <h3>Instant Browser Processing</h3>
-            <p>The Web Audio API engine applies a lush hall reverb with 2.8-second RT60 decay, a 22 ms pre-delay, and M-S stereo widening — entirely in your browser. Your file is never uploaded to any server.</p>
+            <h3>Browser-Side Processing</h3>
+            <p>The Web Audio API engine processes your file completely within your browser. No data is transmitted to any server at any point. The processing pipeline decodes your audio into raw PCM samples, generates a custom hall reverb impulse response with a 2.8-second RT60 decay and 22 ms pre-delay, convolves your audio with that response, applies Mid-Side stereo widening at a 1.25× factor, and normalizes the peak output to −0.5 dBFS.</p>
           </div>
         </li>
         <li class="step">
           <div class="step-num">3</div>
           <div class="step-body">
             <h3>Download &amp; Enjoy</h3>
-            <p>Download your converted WAV file instantly. Put on headphones and experience the immersive spatial depth of a concert hall.</p>
+            <p>The processed audio is rendered offline at full quality and delivered as a lossless WAV file. The filename is automatically set to your original name with "_reverb" appended. Put on headphones and experience the immersive spatial depth of a large concert hall from anywhere.</p>
           </div>
         </li>
       </ol>
     </section>
 
+    <!-- Understanding Spatial Audio -->
+    <section class="card info-section" aria-labelledby="spatial-title">
+      <h2 id="spatial-title">Understanding Spatial Audio</h2>
+      <p class="info-lead">Spatial audio transforms the way we experience recorded music on headphones, turning a flat stereo signal into an immersive, three-dimensional soundscape that feels like being present in a real acoustic space.</p>
+
+      <h3>What Makes Audio "Spatial"?</h3>
+      <p class="info-body">The human auditory system locates sounds using two primary cues. <strong>Interaural time differences (ITD)</strong> are the tiny delays — sometimes less than a millisecond — between when a sound arrives at the left ear versus the right ear. <strong>Interaural level differences (ILD)</strong> describe the subtle volume discrepancy between ears caused by the head "shadowing" sounds arriving from one side. Together with spectral coloring introduced by the shape of your outer ear (the pinna), these cues allow the brain to pinpoint sound sources in three-dimensional space with remarkable precision. Spatial audio processing replicates these natural acoustic cues to create convincing three-dimensional soundscapes through ordinary headphones or earbuds.</p>
+
+      <h3>Why Hall Reverb Creates the Best Spatial Experience</h3>
+      <p class="info-body">Of all reverb types — room, plate, spring, chamber, and hall — hall reverb most closely mimics the acoustic environment in which music was originally designed to be heard: the concert hall. When sound bounces off the walls, floor, and ceiling of a large performance space, it reaches the listener as a series of reflections arriving from all directions at slightly different times. This "envelopment" — the sensation of being surrounded by sound rather than listening to it from a distance — is the defining quality of the live concert experience. Applying a high-quality hall reverb to any recording recreates this sensation on headphones, turning the intimate environment of personal listening into something approaching the grandeur of a live performance.</p>
+
+      <h3>Headphones vs. Speakers</h3>
+      <p class="info-body">Spatial audio and headphone listening are natural companions. When listening through speakers, you already experience natural room acoustics — the speakers' output bounces off your walls, ceiling, and floor, reaching your ears from multiple directions simultaneously. On headphones, sound travels directly into each ear canal with no room interaction whatsoever. This is why headphone listening can sound "in-head" and dimensionally flat, as though the music originates from somewhere inside your skull rather than in front of you. Hall reverb compensates by adding artificial room acoustics to the signal, making music feel open, spacious, and three-dimensional even through closed-back headphones or in-ear monitors.</p>
+    </section>
+
+    <!-- The Science of Hall Reverb -->
+    <section class="card info-section" aria-labelledby="reverb-title">
+      <h2 id="reverb-title">The Science of Hall Reverb</h2>
+      <p class="info-lead">Reverb is not a single effect but a complex acoustic event involving hundreds of individual sound reflections, each arriving at slightly different times and from different directions. Understanding how it works explains why it so powerfully transforms the listening experience.</p>
+
+      <h3>How Reverberation Works</h3>
+      <p class="info-body">When a sound is produced in an enclosed space, it propagates outward in all directions at the speed of sound (approximately 343 meters per second). Some of that energy travels directly to the listener — this is the <strong>direct sound</strong>. The rest strikes walls, the ceiling, and the floor, bouncing repeatedly before eventually dissipating as heat. The first distinct reflections to arrive — typically 10 to 80 milliseconds after the direct sound — are called <strong>early reflections</strong>. They give the listener a strong perceptual cue about the room's size and shape. Following the early reflections is a dense, diffuse wash of overlapping echoes called the <strong>reverb tail</strong>, which gradually decays as each successive reflection loses energy to the room's absorptive surfaces.</p>
+
+      <h3>RT60: The Key Measurement of Reverberant Space</h3>
+      <p class="info-body">The most important specification for any acoustic space is <strong>RT60</strong> — the time it takes for sound to decay by 60 decibels, which corresponds to the practical threshold of inaudibility. A typical bedroom has an RT60 of around 0.3 seconds. A professional recording studio's live room is designed for 0.4 to 0.6 seconds. Medium-sized concert halls target 1.5 to 2.0 seconds when filled with an audience (who absorb a significant amount of sound energy). Grand cathedrals can exceed 8 seconds, creating the long, blurred reverb tails associated with sacred choral music. This tool's hall reverb uses a 2.8-second RT60, placing it in the range of a large, acoustically rich concert hall — long enough for a lush, enveloping effect while retaining musical clarity and definition.</p>
+
+      <h3>Pre-Delay: Simulating Physical Distance</h3>
+      <p class="info-body">Pre-delay is the brief gap between the direct sound and the onset of the first reflections. It simulates the time it takes for sound to travel from the source, reach the nearest reflective surface, and return to the listener. At the speed of sound, a <strong>22 ms pre-delay</strong> corresponds to approximately 7.5 meters of travel — consistent with the geometry of a large performance space. This gap is perceptually critical: without sufficient pre-delay, reverb sounds "glued" to the source and the spatial illusion collapses. With the right pre-delay, the listener perceives a clear separation between the performer in the foreground and the acoustic environment surrounding them, creating genuine depth and dimensionality.</p>
+
+      <h3>Convolution Reverb Technology</h3>
+      <p class="info-body">This tool implements reverb through <strong>convolution</strong> — a mathematical operation that "stamps" the acoustic fingerprint of a space onto any audio signal. The process begins with an <strong>impulse response (IR)</strong>: a precise recording of how a specific space responds to a brief transient sound, such as a starter pistol or a sine sweep. Every frequency component, every reflection, and the complete decay characteristic of the space are captured in this IR. Convolution reverb multiplies every sample of your audio against this impulse response, effectively placing your audio source inside that acoustic environment. It is considered the gold standard for realistic reverberation because it captures the complete, nuanced acoustic fingerprint of a real or carefully modeled space. The custom IR used here was engineered to replicate large concert hall acoustics with particular attention to smooth early reflections and a naturally tapering decay tail.</p>
+    </section>
+
+    <!-- M-S Stereo Widening -->
+    <section class="card info-section" aria-labelledby="ms-title">
+      <h2 id="ms-title">M-S Stereo Widening Explained</h2>
+      <p class="info-lead">In addition to hall reverb, every converted file receives Mid-Side stereo widening — a professional mastering technique that expands the perceived width of the stereo field for a more enveloping listen.</p>
+
+      <h3>What Is Mid-Side Processing?</h3>
+      <p class="info-body">A standard stereo signal consists of a Left channel and a Right channel. Mid-Side (M-S) processing mathematically separates this signal into two different components: the <strong>Mid channel</strong>, which contains everything that is identical in both Left and Right (the mono sum), and the <strong>Side channel</strong>, which contains only the differences between Left and Right. Lead vocals, kick drums, and bass instruments tend to appear primarily in the Mid channel. Ambient reverb tails, panned instruments, and the general sense of stereo width reside in the Side channel.</p>
+
+      <h3>How Stereo Widening Is Applied</h3>
+      <p class="info-body">By amplifying the Side channel relative to the Mid, audio engineers can expand the perceived stereo width without altering the center image. This is a standard technique in professional mastering used to give recordings more "air" and spatial presence. This converter applies a <strong>1.25× stereo widening factor</strong> — a modest but effective boost that broadens the stereo field noticeably without introducing phase issues or pushing elements too far to the edges of the soundstage. The result complements the hall reverb perfectly: the reverb adds depth and sense of space, while the M-S widening expands the lateral dimension, together creating a fully three-dimensional sonic environment.</p>
+
+      <h3>Peak Normalization</h3>
+      <p class="info-body">After reverb and stereo widening are applied, the output is <strong>peak-normalized to −0.5 dBFS</strong>. Normalization scales the entire audio signal so that the loudest peak in the file reaches a target level without clipping. The −0.5 dBFS target (just below digital maximum) ensures the file plays back at consistent volume and is ready for immediate use in streaming, sharing, or further audio editing. This step is important because reverb processing often increases the average loudness of a file as the wet signal adds energy across the full length of the recording.</p>
+    </section>
+
+    <!-- Tips for Best Results -->
+    <section class="card info-section" aria-labelledby="tips-title">
+      <h2 id="tips-title">Tips for Best Results</h2>
+      <p class="info-lead">Getting the most from spatial audio processing depends on your source material, playback equipment, and how you plan to use the converted file. These tips help you achieve the best possible output.</p>
+
+      <ul class="tips-list">
+        <li>
+          <h3>Use high-quality source files</h3>
+          <p>Lossless formats like WAV and FLAC preserve all the fine detail that hall reverb will accentuate. While MP3 and AAC files work perfectly well, compression artifacts in older low-bitrate recordings can become more noticeable after processing. For best results, use source files at 256 kbps or higher. If you only have a lower-quality file, it will still be processed correctly — the spatial effect will just be limited by the quality of the source.</p>
+        </li>
+        <li>
+          <h3>Choose dynamically mastered recordings</h3>
+          <p>Recordings that have been heavily compressed to maximize loudness — a practice common in commercial pop music — can sound muddier after reverb processing because the sustained dense waveform conflicts with the added reflections. Recordings that retain genuine dynamic range (peaks and quiet passages) respond beautifully to hall reverb. Classical, jazz, acoustic, folk, and indie recordings typically benefit the most. If your favorite pop track sounds muddy after conversion, try a remaster or alternate version with better dynamic range.</p>
+        </li>
+        <li>
+          <h3>Listen with open-back headphones when possible</h3>
+          <p>Hall reverb and M-S stereo widening are optimized for headphone listening, but the type of headphone makes a meaningful difference. Open-back headphones — which allow ambient sound to blend naturally with the output — create a more expansive, "out of head" listening experience. Closed-back headphones work well and provide better isolation. Earbuds and in-ear monitors also work, though the spatial effect is less pronounced due to their proximity to the eardrum and smaller driver size.</p>
+        </li>
+        <li>
+          <h3>Try the "slowed + reverb" combination</h3>
+          <p>The "slowed + reverb" aesthetic — popular on YouTube, SoundCloud, and streaming platforms — is simple to create with this tool. Slow your audio to 80–90% of its original speed using any audio editor (Audacity is free and widely available), a video editor like CapCut, or even VLC's playback speed controls if you are recording the output. Then process the slowed file through this converter. The reduced tempo gives the reverb tail room to breathe between musical phrases, creating a dreamy, atmospheric quality that many listeners describe as deeply immersive.</p>
+        </li>
+        <li>
+          <h3>Re-encode the output if you need a smaller file</h3>
+          <p>The converter always outputs a lossless WAV file. WAV is the ideal format for archiving your processed audio and for importing into video editors or DAWs. If you need a smaller file for sharing on social media or sending by message, re-encode the WAV using any free audio converter (Audacity, FFmpeg, or an online converter). All the spatial audio processing is encoded into the audio signal and will be fully preserved regardless of the container or compression format you use for the final file.</p>
+        </li>
+        <li>
+          <h3>Instrumental and classical music responds best</h3>
+          <p>Music without lyrics — particularly classical orchestral and chamber works, jazz, ambient electronic, and acoustic instrumental recordings — gains the most from hall reverb processing because there are no vocals competing for space in the mix. The reverb tail has more room to develop naturally between melodic phrases, and the layered textures of orchestral or jazz music benefit greatly from the spatial separation that hall reverb provides. That said, vocal-heavy music and even hip-hop can sound excellent after conversion — the effect is genre-agnostic, and experimentation is encouraged.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="card info-section" aria-labelledby="usecases-title">
+      <h2 id="usecases-title">Use Cases</h2>
+      <p class="info-lead">Hall reverb and spatial audio processing have a broad range of practical applications for casual listeners, content creators, musicians, and audio professionals alike.</p>
+
+      <ul class="use-cases">
+        <li>
+          <strong>Personal listening</strong>
+          <span>Transform your favorite albums into immersive concert-hall experiences on headphones. Classical, jazz, and acoustic recordings in particular take on new life with a natural hall reverb applied.</span>
+        </li>
+        <li>
+          <strong>Slowed + reverb edits</strong>
+          <span>Create the atmospheric "slowed + reverb" versions that are hugely popular on YouTube and music streaming platforms. Slow a track in any audio editor, then process it here for the characteristic dreamy, lo-fi quality.</span>
+        </li>
+        <li>
+          <strong>Video and podcast production</strong>
+          <span>Add professional-sounding reverb to recorded vocals, instruments, or sound effects for YouTube videos, short-form video content, and podcast episodes. The lossless WAV output integrates directly into any video editing timeline or audio workstation.</span>
+        </li>
+        <li>
+          <strong>Music production and sampling</strong>
+          <span>Process drum samples, melodic loops, string pads, and piano recordings with hall reverb to add space and acoustic realism. Use the output as a wet reference or blend it back into your project at any wet/dry ratio.</span>
+        </li>
+        <li>
+          <strong>Study, relaxation, and focus</strong>
+          <span>Classical music, ambient electronic recordings, and nature soundscapes processed with hall reverb create an enveloping, calming atmosphere that many people find ideal for focused study, meditation, and background listening during deep work sessions.</span>
+        </li>
+        <li>
+          <strong>ASMR and meditation audio</strong>
+          <span>Apply spatial depth and acoustic richness to binaural recordings, ASMR tracks, guided meditation audio, and sleep soundscapes. The combination of a well-recorded binaural source and a lush hall reverb tail creates particularly compelling headphone experiences for relaxation content.</span>
+        </li>
+      </ul>
+    </section>
+
     <!-- About -->
     <section class="card info-section" aria-labelledby="about-title">
       <h2 id="about-title">About Spatial Audio Converter</h2>
-      <p class="info-lead">Spatial Audio Converter is a free, privacy-first tool that transforms flat audio recordings into immersive spatial experiences using professional-grade hall reverb — no account, no server upload, no cost.</p>
+      <p class="info-lead">Spatial Audio Converter is a free, privacy-first browser tool that transforms flat audio recordings into immersive spatial experiences using professional-grade hall reverb — no account, no server upload, no cost.</p>
+      <p class="info-body">The tool was built around a single guiding principle: audio processing should be private, accessible, and high quality. By running entirely within the browser using the Web Audio API, it achieves all three. There is no server infrastructure to maintain, no user data to protect from breaches, and no subscription model to worry about. The processing chain — decoding, convolution reverb, M-S widening, and peak normalization — is the same sequence used in professional digital audio workstations, just implemented in JavaScript and made freely available to anyone with a modern browser.</p>
       <ul class="feature-list">
-        <li><strong>Privacy first</strong> — audio is processed locally and never sent to any server.</li>
-        <li><strong>High-quality hall reverb</strong> — hand-crafted impulse response with 2.8 s RT60 decay and 22 ms pre-delay.</li>
-        <li><strong>Stereo widening</strong> — M-S processing delivers a wide, enveloping soundstage.</li>
-        <li><strong>Peak normalization</strong> — output is normalised to −0.5 dBFS, ready for streaming or further editing.</li>
-        <li><strong>No installation</strong> — works in any modern browser on desktop or mobile.</li>
+        <li><strong>Privacy first</strong> — audio is processed locally in your browser and never sent to any server.</li>
+        <li><strong>High-quality hall reverb</strong> — custom impulse response with 2.8 s RT60 decay and 22 ms pre-delay modeled on large concert hall acoustics.</li>
+        <li><strong>M-S stereo widening</strong> — professional Mid-Side processing delivers a wide, enveloping soundstage without phase artifacts.</li>
+        <li><strong>Peak normalization</strong> — output is normalized to −0.5 dBFS, ready for streaming, sharing, or further editing.</li>
+        <li><strong>Lossless WAV output</strong> — uncompressed output preserves every detail of the processed audio.</li>
+        <li><strong>No installation required</strong> — works in any modern desktop or mobile browser, including Chrome, Edge, Firefox, and Safari.</li>
+        <li><strong>Up to 200 MB</strong> — handles full-length albums and high-resolution audio files without issue.</li>
       </ul>
     </section>
 
@@ -169,27 +287,43 @@
       <dl class="faq">
         <div class="faq-item">
           <dt>What is spatial audio?</dt>
-          <dd>Spatial audio creates the illusion of sound coming from different directions and distances. Combined with hall reverb — the acoustic signature of a large concert hall — music gains a sense of space and dimension that feels immersive on headphones.</dd>
+          <dd>Spatial audio is a category of audio processing techniques that create the perception of sound existing in three-dimensional space around the listener. It uses psychoacoustic principles — the science of how the brain interprets sound — to simulate real acoustic environments. When combined with hall reverb, music gains the sense of space and physical dimension that makes live concert listening so compelling. The result on headphones is an "out of head" experience where sound feels like it comes from around you rather than from inside your skull.</dd>
         </div>
         <div class="faq-item">
           <dt>Which audio formats are supported?</dt>
-          <dd>Spatial Audio Converter accepts MP3, WAV, AAC, OGG, and FLAC files up to 200 MB. The output is always a high-quality, uncompressed WAV file.</dd>
+          <dd>Spatial Audio Converter accepts MP3, WAV, AAC (M4A), OGG Vorbis, and FLAC files up to 200 MB in size. These formats cover the vast majority of audio files you are likely to have. The output is always a high-quality, uncompressed 16-bit stereo WAV file at the same sample rate as your source, ensuring no quality loss beyond what the original format may already have introduced.</dd>
         </div>
         <div class="faq-item">
           <dt>Is my audio uploaded to a server?</dt>
-          <dd>No. All processing happens locally inside your browser using the Web Audio API. Your audio files never leave your device, so your music stays completely private.</dd>
+          <dd>No — not a single byte of your audio is transmitted anywhere. All processing takes place entirely inside your browser using the Web Audio API, a standard JavaScript API built into every modern browser. Your audio file is read directly from your device's memory, processed in your browser's JavaScript engine, and the result is written back to your device as a download. No network connection is required after the page loads. Your music stays completely private.</dd>
         </div>
         <div class="faq-item">
-          <dt>Why is the output in WAV format?</dt>
-          <dd>WAV is uncompressed, preserving every detail of the processed audio. This ensures the reverb and stereo effects sound exactly as intended without any compression artifacts.</dd>
+          <dt>Why is the output always a WAV file?</dt>
+          <dd>WAV is an uncompressed audio format that preserves every sample of the processed audio exactly as the converter produced it. This is important for two reasons: first, it ensures the reverb and stereo effects are reproduced faithfully without compression artifacts; second, it makes the file immediately compatible with any audio or video editing software for further processing. If you need a smaller file for sharing, you can re-encode the WAV to MP3 or AAC using any free audio tool — the spatial processing will be fully preserved in the re-encoded file.</dd>
         </div>
         <div class="faq-item">
           <dt>Will the speed or pitch of my audio change?</dt>
-          <dd>No. The converter adds reverb and stereo widening only — your audio plays back at the exact same speed and pitch as the original.</dd>
+          <dd>No. The converter adds hall reverb and stereo widening only. Your audio plays back at exactly the same speed, in exactly the same key, at the same tempo as the original. If you want a "slowed + reverb" effect, slow down your audio first using a separate tool (such as Audacity or a video editor), then process the slowed file through this converter.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>What is RT60 and why does it matter?</dt>
+          <dd>RT60 is the standard measurement of reverberation time — specifically, the time it takes for sound to decay by 60 decibels after the source stops. It is the primary specification that defines how "large" or "spacious" a reverb effect sounds. Small rooms have RT60 values of 0.2 to 0.5 seconds; concert halls typically fall between 1.5 and 2.5 seconds; cathedrals can exceed 8 seconds. This tool uses a 2.8-second RT60, placing it in the range of a large, relatively empty concert hall — long enough for a lush, immersive tail while keeping musical phrases intelligible and clear.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>Why does it sound better on headphones?</dt>
+          <dd>Hall reverb and stereo widening are optimized for headphone listening. When listening through speakers in a room, your ears already receive natural room acoustics from the speaker output bouncing off your walls and furniture. Adding more reverb on top of that can make the sound muddy. On headphones, sound travels directly into each ear with no room interaction, which is why headphone listening often sounds "flat" or "in-head." The hall reverb and M-S widening compensate for this by artificially restoring the sense of acoustic space that room listening provides naturally.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>How long does processing take?</dt>
+          <dd>Processing time depends primarily on the length of the audio file and the speed of your device. A typical three-to-four minute song takes between 5 and 20 seconds on a modern laptop or phone. Longer files — full albums, extended mixes, or high-resolution audio — may take 30 to 60 seconds. The browser tab must remain open and active during processing. A progress bar displays the current stage and completion percentage so you can track progress in real time.</dd>
         </div>
         <div class="faq-item">
           <dt>Do I need to install anything?</dt>
-          <dd>No installation required. Spatial Audio Converter runs entirely in any modern web browser — Chrome, Edge, Firefox, and Safari are all supported.</dd>
+          <dd>No installation is required at any point. Spatial Audio Converter is a pure browser application built with standard web technologies — HTML, CSS, and JavaScript. It runs in any modern desktop or mobile browser without plugins, extensions, or downloaded software. Chrome, Edge, Firefox, and Safari on both desktop and mobile are all fully supported. The only requirement is that your browser supports the Web Audio API, which every browser released in the last several years does by default.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>Can I process multiple files at once?</dt>
+          <dd>Currently the converter processes one file at a time. After downloading your converted file, click "Convert Another File" to reset the interface and process a new one. Each conversion is independent — the browser tab can be reused indefinitely without reloading. Batch processing support may be added in a future update.</dd>
         </div>
       </dl>
     </section>
